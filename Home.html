@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Form for I-cards - East Coast Railway</title>
+   <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        color: #333;
+    }
+
+    /* Header */
+    .header {
+        background: linear-gradient(135deg, #2d7d32, #4caf50);
+        color: white;
+        padding: 20px 0;
+        position: relative;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .header-content {
+        max-width: 1200px; 
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+    }
+
+    .logo-section {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .logo {
+        width: 60px;
+        height: 60px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: #2d7d32;
+        font-size: 12px;
+        text-align: center;
+        line-height: 1.2;
+    }
+
+    .logo-text {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .header-title {
+        font-size: 28px;
+        font-weight: bold;
+        text-align: center;
+        flex-grow: 1;
+    }
+
+    .dev-credit {
+        text-align: right;
+        font-size: 14px;
+    }
+
+    
+    .main-container {
+        
+        width: 96%; 
+        margin: 0 auto; 
+        display: flex;
+        gap: 20px;
+        padding: 20px;
+        min-height: calc(100vh - 120px);
+    }
+
+    
+    .sidebar {
+        width: 250px; 
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        height: fit-content;
+        overflow: hidden;
+    }
+
+    .sidebar ul {
+        list-style: none;
+    }
+
+    .sidebar li {
+        border-bottom: 1px solid #eee;
+    }
+
+    .sidebar a {
+        display: block;
+        padding: 15px 20px;
+        text-decoration: none;
+        color: #555;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+        background: #4caf50;
+        color: white;
+        transform: translateX(5px);
+    }
+
+    .sidebar a::before {
+        content: "";
+        margin-right: 10px;
+    }
+
+    .sidebar a[href="#new-ng"]::before { content: ""; }
+    .sidebar a[href="#new-gaz"]::before { content: ""; }
+    .sidebar a[href="#status"]::before { content: ""; }
+
+    /* Content Area */
+    .content-area {
+        flex: 1; 
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+
+    
+    .page {
+        display: none;
+        
+        width: 100%; 
+        margin: 0; 
+        padding: 20px;
+        background-color: #eafaea;
+        border: 1px solid #cce0cc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        border-radius: 6px;
+    }
+
+    .page.active {
+        display: block;
+    }
+
+    
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 400px;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .login-box {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 30px;
+        width: 350px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .login-header {
+        background: #337ab7;
+        color: white;
+        padding: 15px;
+        margin: -30px -30px 20px -30px;
+        text-align: center;
+        font-weight: bold;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+        transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: #4caf50;
+        box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+    }
+
+   
+    input[type="text"],
+    input[type="tel"],
+    input[type="date"],
+    select,
+    textarea {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 15px;
+        background-color: #fff;
+    }
+
+    textarea {
+        resize: vertical;
+    }
+
+    .required {
+        color: red;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        font-weight: bold;
+        font-size: 15px;
+        color: white;
+        background-color: #007bff;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn:hover {
+        opacity: 0.9;
+    }
+
+    .btn-clear {
+        background-color: #6c757d;
+    }
+
+    .btn-clear:hover {
+        opacity: 0.9;
+    }
+
+   
+    .g2-logo {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    .g2-text {
+        font-size: 48px;
+        font-weight: bold;
+        background: linear-gradient(45deg, #ff9800, #4caf50, #2196f3);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .g2-subtitle {
+        color: #666;
+        margin-top: 10px;
+        font-size: 14px;
+    }
+
+    /* Form Sections */
+    .form-section {
+        margin: 20px;
+    }
+
+    .form-section h3 {
+        color: #0d6efd;
+        margin-top: 0;
+    }
+
+    .section-header {
+        background-color: #0f5380;
+        color: white;
+        font-size: 20px;
+        padding: 12px 15px;
+        border-radius: 4px;
+        margin-bottom: 25px;
+        font-weight: bold;
+    }
+
+    .employee-details {
+        background: #d4edda;
+        padding: 20px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+    }
+
+    .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .form-col {
+        flex: 1;
+        min-width: 280px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-col label {
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+
+    /* Family Details Section */
+    .family-section {
+        margin-top: 30px;
+        padding: 15px;
+        background-color: #fff4f4;
+        border: 1px solid #f1c1c1;
+        border-radius: 6px;
+    }
+
+    .family-header {
+        font-size: 17px;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .family-input-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .family-input-row input,
+    .family-input-row select {
+        padding: 7px;
+        border: 1px solid #bbb;
+        border-radius: 4px;
+        flex: 1;
+        min-width: 120px;
+    }
+
+    .add-btn {
+        padding: 8px 14px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .add-btn:hover {
+        background-color: #218838;
+    }
+
+    .family-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+    .family-table th,
+    .family-table td {
+        border: 1px solid #bbb;
+        padding: 8px;
+        text-align: center;
+        background-color: #fff;
+    }
+
+    /* Additional Details */
+    .additional-details {
+        background-color: #e6f0ff;
+        border-radius: 6px;
+        padding: 20px;
+        margin-top: 30px;
+    }
+
+    .note-text,
+    .warning-text {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .warning-text {
+        color: red;
+    }
+
+    
+    .file-upload {
+        margin-top: 15px;
+    }
+
+    .file-upload input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background: white;
+    }
+
+   
+    .status-container {
+        display: flex;
+        gap: 30px;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 40px 20px;
+    }
+
+    .status-card {
+        background: white;
+        border-radius: 8px;
+        padding: 30px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        width: 350px;
+        text-align: center;
+    }
+
+    .status-card.gaz {
+        border-top: 4px solid #d4edda;
+    }
+
+    .status-card.non-gaz {
+        border-top: 4px solid #f8d7da;
+    }
+
+    .status-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        padding: 10px;
+        border-radius: 4px;
+    }
+
+    .status-card.gaz .status-title {
+        background: #d4edda;
+        color: #155724;
+    }
+
+    .status-card.non-gaz .status-title {
+        background: #f8d7da;
+        color: #721c24;
+    }
+
+    
+    .form-actions {
+        margin-top: 25px;
+        display: flex;
+        gap: 15px;
+        padding: 0;
+        border-top: none;
+        background: none;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    
+    @media (max-width: 992px) { 
+        .main-container {
+            width: 98%; 
+            padding: 15px; 
+            gap: 15px; 
+        }
+        .sidebar {
+            width: 200px; 
+        }
+    }
+
+    @media (max-width: 768px) {
+        .main-container {
+            flex-direction: column; 
+            width: 100%; 
+            padding: 10px; 
+            gap: 10px;
+        }
+
+        .sidebar {
+            width: 100%; 
+            order: 2; 
+        }
+
+        .header-content {
+            flex-direction: column;
+            text-align: center;
+            gap: 15px;
+            padding: 0 10px;
+        }
+
+        .header-title {
+            font-size: 22px;
+        }
+
+        .form-row {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-col {
+            min-width: 100%;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="date"],
+        select,
+        textarea,
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+        }
+
+        .family-input-row {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .family-input-row input,
+        .family-input-row select {
+            min-width: unset;
+            width: 100%;
+        }
+
+        .add-btn {
+            width: 100%;
+        }
+
+        .family-table {
+            overflow-x: auto; 
+            display: block; 
+            white-space: nowrap; 
+        }
+
+        .family-table th,
+        .family-table td {
+            font-size: 13px;
+            padding: 6px;
+            white-space: normal; 
+        }
+
+        .status-container {
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 10px;
+            gap: 20px;
+        }
+
+        .status-card {
+            width: 90%;
+            max-width: 350px;
+            padding: 20px;
+        }
+
+        .form-actions .btn {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .form-actions {
+            flex-direction: column;
+            gap: 10px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .page {
+            padding: 15px;
+        }
+
+        .form-section {
+            margin: 15px;
+        }
+
+        .section-header {
+            font-size: 18px;
+            padding: 10px 12px;
+        }
+
+        .login-box {
+            width: 95%;
+            padding: 20px;
+        }
+
+        .login-header {
+            margin: -20px -20px 15px -20px;
+        }
+    }
+
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .page.active {
+        animation: fadeIn 0.5s ease-out;
+    }
+
+  
+    select {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        background-size: 16px;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    }
+
+    
+    .success-message {
+        background: #d4edda;
+        color: #155724;
+        padding: 15px;
+        border-radius: 4px;
+        margin: 20px 0;
+        border: 1px solid #c3e6cb;
+    }
+</style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo">INDIAN<br>RAILWAY</div>
+                <div class="logo-text">East Coast Railway</div>
+            </div>
+            <h1 class="header-title">Online Form for I-cards</h1>
+            <div class="dev-credit">
+                <div class="logo">IT<br>CENTRE</div>
+                <div style="margin-top: 5px; font-size: 12px;">Developed by IT Centre</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="#home" class="nav-link active"> Home</a></li>
+                <li><a href="#new-ng" class="nav-link"> Apply for new I-card (NG)</a></li>
+                <li><a href="#new-gaz" class="nav-link"> Apply for new I-card (GAZ)</a></li>
+                <li><a href="#status" class="nav-link"> Application details & status</a></li>
+            </ul>
+        </nav>
+
+        
+        <main class="content-area">
+            
+            <div id="home" class="page active">
+                <div class="login-container">
+                    <div class="login-box">
+                        <div class="login-header">I-Card Admin Login</div>
+                        <form id="loginForm">
+                            <div class="form-group">
+                                <input type="text" placeholder="Enter USER ID" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" placeholder="Password" required>
+                            </div>
+                            <button type="submit" class="btn">Login</button>
+                        </form>
+                    </div>
+                    
+                    <div class="g2-logo">
+                        <div class="g2-text">G2🌿</div>
+                        <div class="g2-subtitle">भारत 2047 INDIA</div>
+                        <div style="color: #666; margin-top: 10px; font-size: 12px;">
+                            वसुधैव कुटुम्बकम्<br>
+                            ONE EARTH • ONE FAMILY • ONE FUTURE
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div id="new-ng" class="page">
+                <div class="section-header">Employee Registration Form (Non Gazetted)</div>
+                <form id="ngForm" class="form-section">
+                    <div class="employee-details">
+                        <h3 style="margin-bottom: 20px; color: #337ab7;">Employee Details:</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label>Employee Name: <span class="required">*</span></label>
+                                <input type="text" placeholder="Enter Employee Name" required>
+                            </div>
+                            <div class="form-col">
+                                <label>Designation: <span class="required">*</span></label>
+                                <input type="text" placeholder="Enter Designation" required>
+                            </div>
+                            <div class="form-col">
+                                <label>Employee No: <span class="required">*</span></label>
+                                <input type="text" placeholder="Enter Employee No" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label>Date Of Birth: <span class="required">*</span></label>
+                                <input type="date" required>
+                            </div>
+                            <div class="form-col">
+                                <label>Department: <span class="required">*</span></label>
+                                <select required>
+                                    <option value="">[SELECT DEPARTMENT]</option>
+                                    <option value="accounts">ACCOUNTS</option>
+                                    <option value="commercial">COMMERCIAL</option>
+                                    <option value="electrical">ELECTRICAL</option>
+                                    <option value="engineering">ENGINEERING</option>
+                                    <option value="ga">GA</option>
+                                    <option value="mechanical">MECHANICAL</option>
+                                    <option value="medical">MEDICAL</option>
+                                    <option value="operating">OPERATING</option>
+                                    <option value="personnel">PERSONNEL</option>
+                                    <option value="rrb">RRB</option>
+                                    <option value="st">S&T</option>
+                                    <option value="safety">SAFETY</option>
+                                    <option value="security">SECURITY</option>
+                                    <option value="stores">STORES</option>
+                                </select>
+                            </div>
+                            <div class="form-col">
+                                <label>Station: <span class="required">*</span></label>
+                                <input type="text" value="BHUBANESWAR" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label>Bill Unit: <span class="required">*</span></label>
+                                <select required>
+                                    <option value="">[SELECT BILL UNIT]</option>
+                                    <option value="3101001">3101001</option>
+                                    <option value="3101002">3101002</option>
+                                    <option value="3101003">3101003</option>
+                                    <option value="3101004">3101004</option>
+                                    <option value="3101010">3101010</option>
+                                    <option value="3101023">3101023</option>
+                                    <option value="3101024">3101024</option>
+                                    <option value="3101025">3101025</option>
+                                    <option value="3101026">3101026</option>
+                                    <option value="3101027">3101027</option>
+                                    <option value="3101065">3101065</option>
+                                    <option value="3101066">3101066</option>
+                                    <option value="3101165">3101165</option>
+                                    <option value="3101166">3101166</option>
+                                    <option value="3101285">3101285</option>
+                                    <option value="3101286">3101286</option>
+                                    <option value="3101287">3101287</option>
+                                    <option value="3101288">3101288</option>
+                                    <option value="3101470">3101470</option>
+                                </select>
+                            </div>
+                            <div class="form-col">
+                                <label>Residential Address: <span class="required">*</span></label>
+                                <textarea placeholder="Enter Residential Address" rows="3" required></textarea>
+                            </div>
+                            <div class="form-col">
+                                <label>Rly Contact Number:</label>
+                                <input type="text" placeholder="Enter Rly Contact Number">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label>Mobile Number: <span class="required">*</span></label>
+                                <input type="tel" placeholder="Enter Valid Mobile Number" required>
+                            </div>
+                            <div class="form-col">
+                                <label>Reason for Application: <span class="required">*</span></label>
+                                <textarea placeholder="Enter Reason" rows="3" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="family-section">
+                        <div class="family-header">Details of family members (As per pass rule):</div>
+                        
+                        <div class="family-input-row">
+                            <input type="text" placeholder="Name" id="familyName">
+                            <input type="text" placeholder="Blood Group" id="familyBloodGroup">
+                            <select id="familyRelation">
+                                <option value="">Relationship</option>
+                                <option value="SELF">SELF</option>
+                                <option value="SPOUSE">SPOUSE</option>
+                                <option value="SON">SON</option>
+                                <option value="DAUGHTER">DAUGHTER</option>
+                                <option value="FATHER">FATHER</option>
+                                <option value="MOTHER">MOTHER</option>
+                            </select>
+                            <input type="date" placeholder="DOB" id="familyDOB">
+                            <input type="text" placeholder="Identification mark(s)" id="familyMarks">
+                            <button type="button" class="add-btn" onclick="addFamilyMember()">Add</button>
+                        </div>
+
+                        <table class="family-table" id="familyTable">
+                            <thead>
+                                <tr>
+                                    <th>Sl. No</th>
+                                    <th>Name</th>
+                                    <th>Blood Group</th>
+                                    <th>Relationship</th>
+                                    <th>DOB</th>
+                                    <th>Identification mark(s)</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                    
+                    <div class="additional-details">
+                        <div style="color: #337ab7; font-weight: bold; margin-bottom: 15px;">Additional Details:</div>
+                        <div class="note-text">NOTE: File name should be Employee's FirstName_photo, FirstName_sign (jpeg/png)</div>
+                        <div class="warning-text">Upload well scanned Photo and Signature. For better visibility Avoid uploading Mobile scanned files and Selfie.</div>
+                        
+                        <div class="form-row" style="margin-top: 20px;">
+                            <div class="form-col">
+                                <label>Emergency Contact Name: <span class="required">*</span></label>
+                                <input type="text" placeholder="Enter Emergency Contact Name" required>
+                            </div>
+                            <div class="form-col">
+                                <label>Emergency Contact Number: <span class="required">*</span></label>
+                                <input type="tel" placeholder="Enter Emergency Contact Number" required>
+                            </div>
+                        </div>
+
+                        <div class="file-upload">
+                            <label>Upload Photo: <span class="required">*</span></label>
+                            <input type="file" accept="image/*" required>
+                        </div>
+
+                        <div class="file-upload">
+                            <label>Upload Signature: <span class="required">*</span></label>
+                            <input type="file" accept="image/*" required>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn">SUBMIT</button>
+                        <button type="reset" class="btn btn-clear">CLEAR</button>
+                    </div>
+                </form>
+            </div>
+
+            
+            <div id="new-gaz" class="page">
+                <div class="section-header">Employee Registration Form (Gazetted)</div>
+                <form id="gazForm" class="form-section">
+                    <div class="employee-details">
+                        <h3 style="margin-bottom: 20px; color: #337ab7;">Employee Details:</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label>Employee Name: <span class="required">*</span></label>
+                                <input type="text" placeholder="Enter Employee Name" required>
+                            </div>
+                            <div class="form-col">
+                                <label>Designation: <span class="required">*</span></label>
+                                <input type="text" placeholder="Enter Designation" required>
+                            </div>
+                            <div class="form-col">
+                                <label>RUID No: <span class="required">*</span></label>
+                                <input type="text" placeholder="Enter RUID No" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label>Date Of Birth: <span class="required">*</span></label>
+                                <input type="date" required>
+                            </div>
+                            <div class="form-col">
+                                <label>Department: <span class="required">*</span></label>
+                                <select required>
+                                    <option value="">[SELECT DEPARTMENT]</option>
+                                    <option value="accounts">ACCOUNTS</option>
+                                    <option value="commercial">COMMERCIAL</option>
+                                    <option value="electrical">ELECTRICAL</option>
+                                    <option value="engineering">ENGINEERING</option>
+                                    <option value="ga">GA</option>
+                                    <option value="mechanical">MECHANICAL</option>
+                                    <option value="medical">MEDICAL</option>
+                                    <option value="operating">OPERATING</option>
+                                    <option value="personnel">PERSONNEL</option>
+                                    <option value="rrb">RRB</option>
+                                    <option value="st">S&T</option>
+                                    <option value="safety">SAFETY</option>
+                                    <option value="security">SECURITY</option>
+                                    <option value="stores">STORES</option>
+                                </select>
+                            </div>
+                            <div class="form-col">
+                                <label>Station: <span class="required">*</span></label>
+                                <input type="text" value="BHUBANESWAR" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label>Bill Unit: <span class="required">*</span></label>
+                                <select required>
+                                    <option value="">[SELECT BILL UNIT]</option>
+                                    <option value="3101001">3101001</option>
+                                    <option value="3101002">3101002</option>
+                                    <option value="3101003">3101003</option>
+                                    <option value="3101004">3101004</option>
+                                    <option value="3101010">3101010</option>
+                                    <option value="3101023">3101023</option>
+                                    <option value="3101024">3101024</option>
+                                    <option value="3101025">3101025</option>
+                                    <option value="3101026">3101026</option>
+                                    <option value="3101027">3101027</option>
+                                    <option value="3101065">3101065</option>
+                                    <option value="3101066">3101066</option>
+                                    <option value="3101165">3101165</option>
+                                    <option value="3101166">3101166</option>
+                                    <option value="3101285">3101285</option>
+                                    <option value="3101286">3101286</option>
+                                    <option value="3101287">3101287</option>
+                                    <option value="3101288">3101288</option>
+                                    <option value="3101470">3101470</option>
+                                </select>
+                            </div>
+                            <div class="form-col">
+                                <label>Residential Address: <span class="required">*</span></label>
+                                <textarea placeholder="Enter Residential Address" rows="3" required></textarea>
+                            </div>
+                            <div class="form-col">
+                                <label>Rly Contact Number:</label>
+                                <input type="text" placeholder="Enter Rly Contact Number">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label>Mobile Number: <span class="required">*</span></label>
+                                <input type="tel" placeholder="Enter Valid Mobile Number" required>
+                            </div>
+                            <div class="form-col">
+                                <label>Reason for Application: <span class="required">*</span></label>
+                                <textarea placeholder="Enter Reason" rows="3" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="family-section">
+                        <div class="family-header">Details of family members (As per pass rule):</div>
+                        
+                        <div class="family-input-row">
+                            <input type="text" placeholder="Name" id="gazFamilyName">
+                            <input type="text" placeholder="Blood Group" id="gazFamilyBloodGroup">
+                            <select id="gazFamilyRelation">
+                                <option value="">Relationship</option>
+                                <option value="SELF">SELF</option>
+                                <option value="SPOUSE">SPOUSE</option
+                                                                    <option value="CHILD">CHILD</option>
+                                <option value="PARENT">PARENT</option>
+                                <option value="OTHER">OTHER</option>
+                            </select>
+                            <input type="date" placeholder="DOB" id="gazFamilyDOB">
+                            <input type="text" placeholder="Identification mark(s)" id="gazFamilyMarks">
+                            <button type="button" class="add-btn" onclick="addGazFamilyMember()">Add</button>
+                        </div>
+
+                        <table class="family-table" id="gazFamilyTable">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Name</th>
+                                    <th>Blood Group</th>
+                                    <th>Relationship</th>
+                                    <th>DOB</th>
+                                    <th>Identification marks</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Family members will be added here dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Additional Details Section -->
+                    <div class="additional-details">
+                        <div class="note-text">
+                            NOTE: File name must be Employee's Firstname_photo, Firstname_signature (jpg/jpeg/png format)
+                        </div>
+                        <div class="warning-text">
+                            Upload clear and legible Photo and Signature. For better visibility/authentication upload scanned copy not selfie.
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label>Emergency Contact Name: <span class="required">*</span></label>
+                                <input type="text" placeholder="Enter Emergency Contact Name" required>
+                            </div>
+                            <div class="form-col">
+                                <label>Emergency Contact Number: <span class="required">*</span></label>
+                                <input type="tel" placeholder="Enter Emergency Contact Number" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-col file-upload">
+                                <label>Upload Photo: <span class="required">*</span></label>
+                                <input type="file" accept="image/*" required>
+                            </div>
+                            <div class="form-col file-upload">
+                                <label>Upload Signature: <span class="required">*</span></label>
+                                <input type="file" accept="image/*" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn">Submit</button>
+                        <button type="reset" class="btn btn-clear">Clear</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Apply for New I-card (Non-Gazetted) -->
+            <div id="new-ng" class="page">
+                <div class="section-header">Employee Registration Form (Non-Gazetted)</div>
+                <form id="ngForm" class="form-section">
+                    <div class="employee-details">
+                        <h3 style="margin-bottom: 20px; color: #337ab7;">Employee Details:</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label>Employee Name: <span class="required">*</span></label>
+                                <input type="text" placeholder="Enter Employee Name" required>
+                            </div>
+                            <div class="form-col">
+                                <label>Designation: <span class="required">*</span></label>
+                                <input type="text" placeholder="Enter Designation" required>
+                            </div>
+                            <div class="form-col">
+                                <label>Employee No: <span class="required">*</span></label>
+                                <input type="text" placeholder="Enter Employee No" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label>Date Of Birth: <span class="required">*</span></label>
+                                <input type="date" required>
+                            </div>
+                            <div class="form-col">
+                                <label>Department: <span class="required">*</span></label>
+                                <select required>
+                                    <option value="">[SELECT DEPARTMENT]</option>
+                                    <option value="accounts">ACCOUNTS</option>
+                                    <option value="commercial">COMMERCIAL</option>
+                                    <option value="electrical">ELECTRICAL</option>
+                                    <option value="engineering">ENGINEERING</option>
+                                    <option value="ga">GA</option>
+                                    <option value="mechanical">MECHANICAL</option>
+                                    <option value="medical">MEDICAL</option>
+                                    <option value="operating">OPERATING</option>
+                                    <option value="personnel">PERSONNEL</option>
+                                    <option value="rrb">RRB</option>
+                                    <option value="st">S&T</option>
+                                    <option value="safety">SAFETY</option>
+                                    <option value="security">SECURITY</option>
+                                    <option value="stores">STORES</option>
+                                </select>
+                            </div>
+                            <div class="form-col">
+                                <label>Station: <span class="required">*</span></label>
+                                <input type="text" value="BHUBANESWAR" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label>Residential Address: <span class="required">*</span></label>
+                                <textarea placeholder="Enter Residential Address" rows="3" required></textarea>
+                            </div>
+                            <div class="form-col">
+                                <label>Rly Contact Number:</label>
+                                <input type="text" placeholder="Enter Rly Contact Number">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label>Mobile Number: <span class="required">*</span></label>
+                                <input type="tel" placeholder="Enter Valid Mobile Number" required>
+                            </div>
+                            <div class="form-col">
+                                <label>Reason for Application: <span class="required">*</span></label>
+                                <textarea placeholder="Enter Reason" rows="3" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Family Details Section -->
+                    <div class="family-section">
+                        <div class="family-header">Details of family members (As per pass rule):</div>
+                        
+                        <div class="family-input-row">
+                            <input type="text" placeholder="Name" id="ngFamilyName">
+                            <input type="text" placeholder="Blood Group" id="ngFamilyBloodGroup">
+                            <select id="ngFamilyRelation">
+                                <option value="">Relationship</option>
+                                <option value="SELF">SELF</option>
+                                <option value="SPOUSE">SPOUSE</option>
+                                <option value="CHILD">CHILD</option>
+                                <option value="PARENT">PARENT</option>
+                                <option value="OTHER">OTHER</option>
+                            </select>
+                            <input type="date" placeholder="DOB" id="ngFamilyDOB">
+                            <input type="text" placeholder="Identification mark(s)" id="ngFamilyMarks">
+                            <button type="button" class="add-btn" onclick="addNGFamilyMember()">Add</button>
+                        </div>
+
+                        <table class="family-table" id="ngFamilyTable">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Name</th>
+                                    <th>Blood Group</th>
+                                    <th>Relationship</th>
+                                    <th>DOB</th>
+                                    <th>Identification marks</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Family members will be added here dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Additional Details Section -->
+                    <div class="additional-details">
+                        <div class="note-text">
+                            NOTE: File name must be Employee's Firstname_photo, Firstname_signature (jpg/jpeg/png format)
+                        </div>
+                        <div class="warning-text">
+                            Upload clear and legible Photo and Signature. For better visibility/authentication upload scanned copy not selfie.
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label>Emergency Contact Name: <span class="required">*</span></label>
+                                <input type="text" placeholder="Enter Emergency Contact Name" required>
+                            </div>
+                            <div class="form-col">
+                                <label>Emergency Contact Number: <span class="required">*</span></label>
+                                <input type="tel" placeholder="Enter Emergency Contact Number" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-col file-upload">
+                                <label>Upload Photo: <span class="required">*</span></label>
+                                <input type="file" accept="image/*" required>
+                            </div>
+                            <div class="form-col file-upload">
+                                <label>Upload Signature: <span class="required">*</span></label>
+                                <input type="file" accept="image/*" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn">Submit</button>
+                        <button type="reset" class="btn btn-clear">Clear</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Application Status Page -->
+            <div id="status" class="page">
+                <div class="status-container">
+                    <div class="status-card gaz">
+                        <div class="status-title">Application Status (Gazetted)</div>
+                        <form id="gazStatusForm">
+                            <div class="form-group">
+                                <label>Application ID:</label>
+                                <input type="text" placeholder="Enter Application ID">
+                            </div>
+                            <div class="form-group">
+                                <label>Date of Birth:</label>
+                                <input type="date">
+                            </div>
+                            <button type="submit" class="btn btn-secondary">Submit</button>
+                        </form>
+                    </div>
+
+                    <div class="status-card non-gaz">
+                        <div class="status-title">Application Status (Non-Gazetted)</div>
+                        <form id="ngStatusForm">
+                            <div class="form-group">
+                                <label>Application ID:</label>
+                                <input type="text" placeholder="Enter Application ID">
+                            </div>
+                            <div class="form-group">
+                                <label>Date of Birth:</label>
+                                <input type="date">
+                            </div>
+                            <button type="submit" class="btn btn-secondary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pages = document.querySelectorAll('.page');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links and pages
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    pages.forEach(p => p.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Show corresponding page
+                    const targetId = this.getAttribute('href').substring(1);
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+
+            // Form submission handlers
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Login functionality will be implemented here');
+            });
+
+            document.getElementById('gazForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Gazetted application submitted successfully!');
+            });
+
+            document.getElementById('ngForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Non-Gazetted application submitted successfully!');
+            });
+
+            document.getElementById('gazStatusForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Gazetted status check functionality will be implemented here');
+            });
+
+            document.getElementById('ngStatusForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Non-Gazetted status check functionality will be implemented here');
+            });
+        });
+
+        // Family member addition functions
+        let gazFamilyCounter = 1;
+        let ngFamilyCounter = 1;
+
+        function addGazFamilyMember() {
+            const name = document.getElementById('gazFamilyName').value;
+            const bloodGroup = document.getElementById('gazFamilyBloodGroup').value;
+            const relation = document.getElementById('gazFamilyRelation').value;
+            const dob = document.getElementById('gazFamilyDOB').value;
+            const marks = document.getElementById('gazFamilyMarks').value;
+
+            if (!name || !relation) {
+                alert('Name and Relationship are required fields');
+                return;
+            }
+
+            const tableBody = document.querySelector('#gazFamilyTable tbody');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>${gazFamilyCounter++}</td>
+                <td>${name}</td>
+                <td>${bloodGroup || '-'}</td>
+                <td>${relation}</td>
+                <td>${dob || '-'}</td>
+                <td>${marks || '-'}</td>
+                <td><button onclick="this.parentNode.parentNode.remove()">Remove</button></td>
+            `;
+            tableBody.appendChild(newRow);
+
+            // Clear input fields
+            document.getElementById('gazFamilyName').value = '';
+            document.getElementById('gazFamilyBloodGroup').value = '';
+            document.getElementById('gazFamilyRelation').value = '';
+            document.getElementById('gazFamilyDOB').value = '';
+            document.getElementById('gazFamilyMarks').value = '';
+        }
+
+        function addNGFamilyMember() {
+            const name = document.getElementById('ngFamilyName').value;
+            const bloodGroup = document.getElementById('ngFamilyBloodGroup').value;
+            const relation = document.getElementById('ngFamilyRelation').value;
+            const dob = document.getElementById('ngFamilyDOB').value;
+            const marks = document.getElementById('ngFamilyMarks').value;
+
+            if (!name || !relation) {
+                alert('Name and Relationship are required fields');
+                return;
+            }
+
+            const tableBody = document.querySelector('#ngFamilyTable tbody');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>${ngFamilyCounter++}</td>
+                <td>${name}</td>
+                <td>${bloodGroup || '-'}</td>
+                <td>${relation}</td>
+                <td>${dob || '-'}</td>
+                <td>${marks || '-'}</td>
+                <td><button onclick="this.parentNode.parentNode.remove()">Remove</button></td>
+            `;
+            tableBody.appendChild(newRow);
+
+            // Clear input fields
+            document.getElementById('ngFamilyName').value = '';
+            document.getElementById('ngFamilyBloodGroup').value = '';
+            document.getElementById('ngFamilyRelation').value = '';
+            document.getElementById('ngFamilyDOB').value = '';
+            document.getElementById('ngFamilyMarks').value = '';
+        }
+    </script>
+</body>
+</html>
